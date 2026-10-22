@@ -19,6 +19,7 @@ export const PROJECTS_DATA = [
     image: '/assets/ai_email.jpg',
     badge: 'FEATURED · GEMINI AI',
     github: 'https://github.com/Vikku232/AI-Email-Reply-Assistant',
+    live: 'https://ai-email-reply.netlify.app/',
     description:
       'Developed an AI-powered Gmail Chrome Extension for generating professional email replies using Google Gemini API. Built full-stack architecture with React frontend and Spring Boot backend using REST APIs, backed by MySQL.',
     bullets: [
