@@ -293,21 +293,48 @@ export default function Navbar({ onOpenContact }) {
         </div>
       </div>
 
-      {/* Mobile Drawer - Opens everything stacked vertically (ek ke niche ek karke) */}
+      {/* Mobile Drawer - Dynamically switches between Black & White (on Hero) and Maroon (on dark sections) */}
       {mobileMenuOpen && (
         <div
           data-lenis-prevent
-          style={{ backgroundColor: '#100204', color: '#FFFFFF' }}
-          className="md:hidden mt-3 mx-auto w-full max-w-sm sm:max-w-md rounded-2xl p-4 sm:p-5 border-2 border-[#7A1926] shadow-[0_30px_90px_rgba(0,0,0,0.98)] flex flex-col gap-2.5 animate-fadeIn text-white"
+          style={{
+            backgroundColor: isDarkBg ? '#100204' : '#FFFFFF',
+            color: isDarkBg ? '#FFFFFF' : '#000000',
+          }}
+          className={`md:hidden mt-3 mx-auto w-full max-w-sm sm:max-w-md rounded-2xl p-4 sm:p-5 border-2 shadow-2xl flex flex-col gap-2.5 animate-fadeIn transition-colors duration-300 ${
+            isDarkBg
+              ? 'border-[#7A1926] shadow-[0_30px_90px_rgba(0,0,0,0.98)] text-white'
+              : 'border-neutral-900 shadow-[0_25px_70px_rgba(0,0,0,0.22)] text-neutral-900'
+          }`}
         >
-          {/* 1. Navigation Links (Ek ke niche ek, crystal clear high contrast) */}
+          {/* 1. Navigation Links (Ek ke niche ek, auto-adapting theme) */}
           <div className="flex flex-col space-y-1.5">
             {[
-              { label: 'ABOUT', href: '#about', icon: <User size={16} className="text-[#FF758F]" /> },
-              { label: 'EXPERIENCE', href: '#experience', icon: <Briefcase size={16} className="text-[#FF758F]" /> },
-              { label: 'SKILLS', href: '#skills', icon: <Cpu size={16} className="text-[#FF758F]" /> },
-              { label: 'PROJECTS', href: '#projects', icon: <Layers size={16} className="text-[#FF758F]" /> },
-              { label: 'EDUCATION', href: '#education', icon: <GraduationCap size={16} className="text-[#FF758F]" /> },
+              {
+                label: 'ABOUT',
+                href: '#about',
+                icon: <User size={16} className={isDarkBg ? 'text-[#FF758F]' : 'text-neutral-900'} />,
+              },
+              {
+                label: 'EXPERIENCE',
+                href: '#experience',
+                icon: <Briefcase size={16} className={isDarkBg ? 'text-[#FF758F]' : 'text-neutral-900'} />,
+              },
+              {
+                label: 'SKILLS',
+                href: '#skills',
+                icon: <Cpu size={16} className={isDarkBg ? 'text-[#FF758F]' : 'text-neutral-900'} />,
+              },
+              {
+                label: 'PROJECTS',
+                href: '#projects',
+                icon: <Layers size={16} className={isDarkBg ? 'text-[#FF758F]' : 'text-neutral-900'} />,
+              },
+              {
+                label: 'EDUCATION',
+                href: '#education',
+                icon: <GraduationCap size={16} className={isDarkBg ? 'text-[#FF758F]' : 'text-neutral-900'} />,
+              },
             ].map((link) => (
               <a
                 key={link.label}
@@ -322,18 +349,24 @@ export default function Navbar({ onOpenContact }) {
                     document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border border-[#5A141E] text-white font-mono font-bold text-xs tracking-wider transition-all cursor-pointer shadow-sm"
+                className={`flex items-center justify-between px-4 py-3 rounded-xl font-mono font-bold text-xs tracking-wider transition-all cursor-pointer shadow-sm border ${
+                  isDarkBg
+                    ? 'bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border-[#5A141E] text-white'
+                    : 'bg-[#F5F5F7] hover:bg-[#EBEBEF] active:bg-[#DFDFE5] border-neutral-300 text-neutral-900'
+                }`}
               >
                 <div className="flex items-center gap-3">
                   <span className="shrink-0">{link.icon}</span>
-                  <span className="text-white font-extrabold tracking-wider">{link.label}</span>
+                  <span className="font-extrabold tracking-wider">{link.label}</span>
                 </div>
-                <span className="text-[#FF758F] text-sm font-bold">→</span>
+                <span className={`text-sm font-bold ${isDarkBg ? 'text-[#FF758F]' : 'text-neutral-700'}`}>
+                  →
+                </span>
               </a>
             ))}
           </div>
 
-          <div className="h-[1px] w-full bg-[#5A141E]/70 my-0.5" />
+          <div className={`h-[1px] w-full my-0.5 ${isDarkBg ? 'bg-[#5A141E]/70' : 'bg-neutral-200'}`} />
 
           {/* 2. Download Resume Button (Ek ke niche) */}
           <button
@@ -341,10 +374,14 @@ export default function Navbar({ onOpenContact }) {
               setMobileMenuOpen(false);
               requestResumeDownload();
             }}
-            className="w-full py-3.5 px-4 rounded-xl text-xs font-black font-mono tracking-wider flex items-center justify-center gap-2 border-2 border-[#7A1926] bg-[#2A060C] hover:bg-[#3D0A13] text-white shadow-[0_0_20px_rgba(122,25,38,0.45)] cursor-pointer active:scale-95 transition-all text-center"
+            className={`w-full py-3.5 px-4 rounded-xl text-xs font-black font-mono tracking-wider flex items-center justify-center gap-2 border-2 cursor-pointer active:scale-95 transition-all text-center ${
+              isDarkBg
+                ? 'bg-[#2A060C] hover:bg-[#3D0A13] text-white border-[#7A1926] shadow-[0_0_20px_rgba(122,25,38,0.45)]'
+                : 'bg-white hover:bg-neutral-100 text-black border-black shadow-sm'
+            }`}
           >
-            <Download size={16} className="text-[#FF758F] shrink-0" />
-            <span className="text-white font-extrabold tracking-wider">DOWNLOAD RESUME (PDF)</span>
+            <Download size={16} className={`shrink-0 ${isDarkBg ? 'text-[#FF758F]' : 'text-black'}`} />
+            <span className="font-extrabold tracking-wider">DOWNLOAD RESUME (PDF)</span>
           </button>
 
           {/* 3. Get In Touch Button (Ek ke niche) */}
@@ -357,13 +394,17 @@ export default function Navbar({ onOpenContact }) {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="w-full py-3.5 px-4 rounded-xl text-xs font-black font-mono tracking-wider flex items-center justify-center gap-2 bg-[#7A1926] hover:bg-[#962031] text-white border border-[#FF758F]/50 shadow-[0_0_25px_rgba(122,25,38,0.6)] cursor-pointer active:scale-95 transition-all text-center"
+            className={`w-full py-3.5 px-4 rounded-xl text-xs font-black font-mono tracking-wider flex items-center justify-center gap-2 border cursor-pointer active:scale-95 transition-all text-center ${
+              isDarkBg
+                ? 'bg-[#7A1926] hover:bg-[#962031] text-white border-[#FF758F]/50 shadow-[0_0_25px_rgba(122,25,38,0.6)]'
+                : 'bg-black hover:bg-neutral-800 text-white border-black shadow-md'
+            }`}
           >
-            <span className="text-white font-extrabold tracking-wider">GET IN TOUCH</span>
+            <span className="font-extrabold tracking-wider">GET IN TOUCH</span>
             <ArrowUpRight size={16} className="shrink-0" />
           </button>
 
-          <div className="h-[1px] w-full bg-[#5A141E]/70 my-0.5" />
+          <div className={`h-[1px] w-full my-0.5 ${isDarkBg ? 'bg-[#5A141E]/70' : 'bg-neutral-200'}`} />
 
           {/* 4. Social Links (GitHub & LinkedIn - Ek ke niche ek karke) */}
           <div className="flex flex-col gap-2 pt-0.5">
@@ -372,13 +413,17 @@ export default function Navbar({ onOpenContact }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border border-[#5A141E] text-white text-xs font-mono font-bold transition-all"
+              className={`flex items-center justify-between px-4 py-3 rounded-xl border text-xs font-mono font-bold transition-all ${
+                isDarkBg
+                  ? 'bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border-[#5A141E] text-white'
+                  : 'bg-[#F5F5F7] hover:bg-[#EBEBEF] active:bg-[#DFDFE5] border-neutral-300 text-neutral-900'
+              }`}
             >
               <div className="flex items-center gap-3">
                 <GithubIcon size={17} />
-                <span className="text-white font-extrabold tracking-wider">GitHub Profile</span>
+                <span className="font-extrabold tracking-wider">GitHub Profile</span>
               </div>
-              <ArrowUpRight size={15} className="text-[#FF758F]" />
+              <ArrowUpRight size={15} className={isDarkBg ? 'text-[#FF758F]' : 'text-neutral-500'} />
             </a>
 
             <a
@@ -386,13 +431,19 @@ export default function Navbar({ onOpenContact }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border border-[#5A141E] text-white text-xs font-mono font-bold transition-all"
+              className={`flex items-center justify-between px-4 py-3 rounded-xl border text-xs font-mono font-bold transition-all ${
+                isDarkBg
+                  ? 'bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border-[#5A141E] text-white'
+                  : 'bg-[#F5F5F7] hover:bg-[#EBEBEF] active:bg-[#DFDFE5] border-neutral-300 text-[#0A66C2]'
+              }`}
             >
               <div className="flex items-center gap-3">
                 <LinkedinIcon size={17} />
-                <span className="text-[#38BDF8] font-extrabold tracking-wider">LinkedIn Profile</span>
+                <span className={`font-extrabold tracking-wider ${isDarkBg ? 'text-[#38BDF8]' : 'text-[#0A66C2]'}`}>
+                  LinkedIn Profile
+                </span>
               </div>
-              <ArrowUpRight size={15} className="text-[#FF758F]" />
+              <ArrowUpRight size={15} className={isDarkBg ? 'text-[#FF758F]' : 'text-neutral-500'} />
             </a>
           </div>
         </div>
