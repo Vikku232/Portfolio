@@ -125,3 +125,27 @@ html.lenis, html.lenis body {
   transform-origin: left center;
 }
 
+/* Sleek Modal Scrollbar */
+.modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #5A121E #0E1015;
+}
+
+.modal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-scroll::-webkit-scrollbar-track {
+  background: #0E1015;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: #5A121E;
+  border-radius: 9999px;
+}
+
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #8A1A2A;
+}
+
+

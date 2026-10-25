@@ -1,34 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { X, ExternalLink, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 import { playClickSound } from '../utils/sound';
 import { renderTechIcon } from './TechIcons';
 
 export default function ProjectModal({ project, onClose }) {
+  const detailsRef = useRef(null);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
+
+    // Disable body scroll and pause Lenis smooth scroll so it does not hijack inner wheel events
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    if (window.lenis) {
+      window.lenis.stop();
+    }
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = originalOverflow || 'unset';
+      if (window.lenis) {
+        window.lenis.start();
+      }
     };
   }, [onClose]);
 
   if (!project) return null;
 
+  const handleImageWheel = (e) => {
+    if (detailsRef.current) {
+      detailsRef.current.scrollTop += e.deltaY;
+    }
+  };
+
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-md animate-fadeIn"
+      data-lenis-prevent
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-8 bg-black/85 backdrop-blur-md animate-fadeIn"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl max-h-[90vh] bg-[#0E1015] text-white rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col md:flex-row overflow-y-auto"
+        data-lenis-prevent
+        className="relative w-full max-w-4xl max-h-[92vh] md:max-h-[88vh] bg-[#0E1015] text-white rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col md:flex-row"
         onClick={(e) => e.stopPropagation()}
         style={{
-          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.7)',
+          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.8)',
         }}
       >
         {/* Close Button */}
@@ -37,26 +56,45 @@ export default function ProjectModal({ project, onClose }) {
             playClickSound();
             onClose();
           }}
-          className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all backdrop-blur"
+          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/70 hover:bg-black/95 text-white flex items-center justify-center transition-all backdrop-blur border border-white/15 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
           aria-label="Close modal"
         >
           <X size={20} />
         </button>
 
         {/* Media Preview Column */}
-        <div className="w-full md:w-1/2 bg-black flex items-center justify-center overflow-hidden min-h-[320px] md:min-h-full relative">
+        <div
+          onWheel={handleImageWheel}
+          className="w-full md:w-1/2 bg-neutral-950 flex items-center justify-center overflow-hidden min-h-[220px] sm:min-h-[280px] md:min-h-full relative shrink-0 select-none"
+        >
+          {/* Subtle blurred ambient backdrop of the screenshot */}
+          <img
+            src={project.image}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-125"
+          />
+          {/* Main screenshot */}
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover md:object-contain scale-100 hover:scale-105 transition-transform duration-700"
+            className="relative z-10 w-full h-full object-cover object-top md:object-contain scale-100 hover:scale-[1.03] transition-transform duration-700"
           />
-          <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur px-3 py-1 rounded-full text-xs font-mono text-neutral-300">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10" />
+          <div className="absolute bottom-4 left-4 z-20 bg-black/80 backdrop-blur px-3 py-1 rounded-full text-xs font-mono text-neutral-200 border border-white/15 shadow-md">
             {project.badge || 'SELECTED WORK'}
           </div>
         </div>
 
-        {/* Details Column */}
-        <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
+        {/* Details Column - Scrollable with custom styled scrollbar */}
+        <div
+          ref={detailsRef}
+          data-lenis-prevent
+          className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between overflow-y-auto max-h-[calc(92vh-220px)] md:max-h-[88vh] modal-scroll"
+          style={{
+            overscrollBehavior: 'contain',
+          }}
+        >
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-amber-400 mb-2">
               <Sparkles size={14} />
