@@ -160,9 +160,9 @@ export default function Navbar({ onOpenContact }) {
           </div>
         </a>
 
-        {/* Center Desktop Navigation Pill */}
+        {/* Center Desktop/Tablet Navigation Pill */}
         <nav
-          className={`hidden lg:flex items-center gap-0.5 p-1 rounded-full transition-all duration-300 ${
+          className={`hidden md:flex items-center gap-0.5 p-1 rounded-full transition-all duration-300 ${
             isDarkBg
               ? 'bg-[#180508]/90 backdrop-blur-md border border-[#4A1018]/45 shadow-lg'
               : 'bg-white/80 backdrop-blur-md border border-black/10 shadow-sm'

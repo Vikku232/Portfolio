@@ -248,7 +248,7 @@ export default function CuratedProjects({ onSelectProject }) {
               </div>
 
               {/* Card Meta & Content */}
-              <div className="p-5 flex flex-col justify-between flex-1 bg-transparent">
+              <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 bg-transparent">
                 <div>
                   <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 mb-1">
                     <span className="font-semibold text-emerald-400">{proj.category}</span>
