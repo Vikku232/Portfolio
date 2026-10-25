@@ -340,8 +340,6 @@ export default function ContactFooter() {
 
         {/* 4. Giant 3D Chrome Name with Dark Maroon to Black Wave Background */}
         <div className="contact-reveal relative w-full overflow-hidden flex flex-col items-center justify-center pt-8 sm:pt-14 pb-6 sm:pb-10 my-4 select-none">
-          {/* Accessible Heading for SEO / Screen Readers */}
-          <h1 className="sr-only">VIKASH KUMAR PANDEY</h1>
 
           {/* Dark Maroon to Black Wave Background */}
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
@@ -411,63 +409,24 @@ export default function ContactFooter() {
             </svg>
           </div>
 
-          {/* Fully Responsive Metallic Chrome 3D Typography: VIKASH */}
-          <div className="relative z-10 w-full max-w-5xl px-2 sm:px-4 flex items-center justify-center">
-            <svg
-              viewBox="0 0 1100 210"
-              className="w-full h-auto max-h-[180px] sm:max-h-[240px] select-none overflow-visible"
-              xmlns="http://www.w3.org/2000/svg"
-              role="img"
-              aria-label="VIKASH"
+          {/* Fully Responsive Metallic Chrome 3D Typography: Pure HTML Text */}
+          <div className="relative z-10 w-full px-2 sm:px-4 flex flex-col items-center justify-center">
+            <h1
+              className="text-[13vw] sm:text-[14vw] md:text-[13vw] lg:text-[11.5vw] xl:text-[9.5rem] 2xl:text-[11rem] font-black font-display tracking-tight leading-none uppercase select-none text-center m-0 p-0"
+              style={{
+                fontFamily: '"Syne", "Outfit", sans-serif',
+                background:
+                  'linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 22%, #7E8B9F 46%, #2D3748 49%, #0F172A 51%, #FFFFFF 53%, #CBD5E1 68%, #64748B 85%, #1E293B 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                WebkitTextStroke: '1px rgba(255, 255, 255, 0.3)',
+                filter:
+                  'drop-shadow(0 20px 35px rgba(0, 0, 0, 0.95)) drop-shadow(0 2px 4px rgba(255, 255, 255, 0.35))',
+                letterSpacing: '-0.03em',
+              }}
             >
-              <defs>
-                {/* Multi-stop Metallic Chrome 3D Specular Reflection */}
-                <linearGradient id="vikashChromeReflect" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#FFFFFF" />
-                  <stop offset="22%" stopColor="#E2E8F0" />
-                  <stop offset="46%" stopColor="#7E8B9F" />
-                  <stop offset="49%" stopColor="#2D3748" />
-                  <stop offset="51%" stopColor="#0F172A" />
-                  <stop offset="53%" stopColor="#FFFFFF" />
-                  <stop offset="68%" stopColor="#CBD5E1" />
-                  <stop offset="85%" stopColor="#64748B" />
-                  <stop offset="100%" stopColor="#1E293B" />
-                </linearGradient>
-
-                {/* Bevel Rim Stroke Gradient */}
-                <linearGradient id="vikashBevelStroke" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
-                  <stop offset="48%" stopColor="#94A3B8" stopOpacity="0.4" />
-                  <stop offset="52%" stopColor="#FFFFFF" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#334155" stopOpacity="0.6" />
-                </linearGradient>
-
-                {/* 3D Depth Drop Shadow Filter */}
-                <filter id="vikashChromeDepth" x="-15%" y="-20%" width="130%" height="150%">
-                  <feDropShadow dx="0" dy="16" stdDeviation="18" floodColor="#000000" floodOpacity="0.95" />
-                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#FFFFFF" floodOpacity="0.35" />
-                </filter>
-              </defs>
-
-              <text
-                x="550"
-                y="152"
-                textAnchor="middle"
-                fill="url(#vikashChromeReflect)"
-                stroke="url(#vikashBevelStroke)"
-                strokeWidth="1.2"
-                filter="url(#vikashChromeDepth)"
-                style={{
-                  fontFamily: '"Syne", "Outfit", sans-serif',
-                  fontWeight: 900,
-                  fontSize: '185px',
-                  letterSpacing: '-0.025em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                VIKASH
-              </text>
-            </svg>
+              VIKASH
+            </h1>
           </div>
 
           {/* Subtitle Underneath Name - Fluid & Responsive on all mobile screens */}
