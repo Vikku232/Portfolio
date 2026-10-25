@@ -73,7 +73,7 @@ export default function App() {
         {/* 4. Technical Skills Arsenal (Java, Spring Boot, React, SQL, Tools) */}
         <TechnicalSkills />
 
-        {/* 5. Curated Projects Section (AI Email Assistant & ConnectSphere) */}
+        {/* 5. Curated Projects Section (School Admission Portal, AI Email Assistant & ConnectSphere) */}
         <CuratedProjects onSelectProject={setSelectedProject} />
 
         {/* 6. Education & Certifications (GMIT B.Tech, Ardent Computech, Euphoria Genx) */}

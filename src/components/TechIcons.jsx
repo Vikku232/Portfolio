@@ -478,6 +478,17 @@ export function GsapIcon({ size = 24, className = '' }) {
   );
 }
 
+export function SupabaseIcon({ size = 24, className = '' }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+      <path
+        d="M21.362 9.354H12V.304a.304.304 0 0 0-.54-.188L2.097 12.39a.607.607 0 0 0 .474 1.002H12v9.05a.304.304 0 0 0 .54.188l9.363-12.274a.607.607 0 0 0-.541-1.002z"
+        fill="#3ECF8E"
+      />
+    </svg>
+  );
+}
+
 // Master Tech Icon resolver
 export function renderTechIcon(name, size = 15, className = '') {
   const n = (name || '').trim().toLowerCase();
@@ -503,6 +514,7 @@ export function renderTechIcon(name, size = 15, className = '') {
   if (n.includes('three') || n.includes('webgl')) return <ThreeJsIcon size={size} className={className} />;
   if (n.includes('gsap') || n.includes('scrolltrigger') || n.includes('motion')) return <GsapIcon size={size} className={className} />;
   if (n.includes('docker')) return <DockerIcon size={size} className={className} />;
+  if (n.includes('supabase')) return <SupabaseIcon size={size} className={className} />;
   if (n.includes('postgres')) return <PostgresIcon size={size} className={className} />;
   if (n.includes('sqlite')) return <SqliteIcon size={size} className={className} />;
   if (n.includes('mysql')) return <MysqlIcon size={size} className={className} />;

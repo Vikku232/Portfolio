@@ -10,6 +10,38 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const PROJECTS_DATA = [
   {
+    id: 'school-admission-portal',
+    title: 'School Admission Portal',
+    subtitle: 'Senior Secondary School ERP (11th & 12th)',
+    category: 'FULL STACK ENTERPRISE & EDU-TECH',
+    client: 'ROYAL INT. SENIOR SEC. SCHOOL',
+    year: '2026',
+    image: '/assets/school_portal.png',
+    badge: 'FEATURED · ENTERPRISE ERP',
+    github: 'https://github.com/Vikku232/School-Admission-Portal',
+    live: 'https://school-9ja1tuv2z-vikku232s-projects.vercel.app',
+    description:
+      'Engineered an enterprise-grade School Admission & Management Portal dedicated to Senior Secondary Classes 11th & 12th (RIPS). Features stream selection (Science PCM/PCB, Commerce, Humanities), multi-step digital admission application, document verification pipeline, fee invoice calculation, student & guardian portals, attendance, and exam management.',
+    bullets: [
+      'Engineered Class 11th & 12th admission workflow with stream-specific subject selection (Science, Commerce, Humanities).',
+      'Implemented Spring Boot RESTful services with JWT authentication, RBAC, and Supabase / PostgreSQL database integration.',
+      'Designed responsive, high-performance UI using React 19, TypeScript, Tailwind CSS, Motion animations, and TanStack Query.',
+      'Built modules for fee management, invoice generation, attendance tracking, document uploads, and automated notifications.',
+    ],
+    tags: [
+      'React 19',
+      'TypeScript',
+      'Spring Boot',
+      'REST API',
+      'Supabase',
+      'PostgreSQL',
+      'Tailwind CSS',
+      'Git',
+    ],
+    deliverables: 'Class 11 & 12 Admission Portal, Spring Boot REST API, Student/Admin Dashboard, Supabase DB',
+    isHero: true,
+  },
+  {
     id: 'ai-email-reply',
     title: 'AI-Email-Reply-Assistant',
     subtitle: 'AI Powered Gmail Chrome Extension',
@@ -40,7 +72,7 @@ export const PROJECTS_DATA = [
       'Git',
     ],
     deliverables: 'Chrome Extension, Spring Boot REST Backend, MySQL DB, Gemini API Integration',
-    isHero: true,
+    isHero: false,
   },
   {
     id: 'connect-sphere',
@@ -153,12 +185,12 @@ export default function CuratedProjects({ onSelectProject }) {
             </h2>
           </div>
           <p className="mt-2 md:mt-0 text-xs md:text-sm text-neutral-400 max-w-md font-sans leading-relaxed">
-            Real full-stack systems engineering combining Spring Boot, REST APIs, WebSocket real-time pipelines, and Generative AI integrations.
+            Production-grade full-stack systems engineering combining Spring Boot, React, Supabase, REST APIs, WebSockets, and Generative AI integrations.
           </p>
         </div>
 
-        {/* 2 Featured Real Projects */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Featured Real Projects */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {PROJECTS_DATA.map((proj, index) => (
             <div
               key={proj.id}
@@ -235,7 +267,7 @@ export default function CuratedProjects({ onSelectProject }) {
                     {proj.bullets.slice(0, 2).map((b, i) => (
                       <div key={i} className="flex items-start gap-2 text-xs text-neutral-300 font-sans leading-relaxed">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
-                        <span className="line-clamp-1">{b}</span>
+                        <span className="line-clamp-2">{b}</span>
                       </div>
                     ))}
                   </div>
