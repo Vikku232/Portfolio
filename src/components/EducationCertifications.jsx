@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -124,6 +125,19 @@ export default function EducationCertifications() {
     activeHoverId === 'btech' ||
     activeHoverId === 'web-design' ||
     activeHoverId === 'php-backend';
+
+  // Lock body scroll and pause Lenis when confirmation modal is open
+  useEffect(() => {
+    if (showConfirmModal) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      if (window.lenis) window.lenis.stop();
+      return () => {
+        document.body.style.overflow = prevOverflow || 'unset';
+        if (window.lenis) window.lenis.start();
+      };
+    }
+  }, [showConfirmModal]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -568,68 +582,77 @@ export default function EducationCertifications() {
       </div>
 
       {/* Resume Download Confirmation Modal */}
-      {showConfirmModal && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-[120] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) cancelDownloadResume();
-          }}
-        >
-          <div className="w-full max-w-md rounded-2xl bg-gradient-to-b from-[#1C0509] via-[#120306] to-[#0A0A0C] border-2 border-[#7A1926] shadow-[0_20px_60px_rgba(122,25,38,0.7)] p-6 text-white relative">
-            {/* Top Close Button */}
-            <button
-              onClick={cancelDownloadResume}
-              onMouseEnter={playHoverSound}
-              className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors cursor-pointer p-1 rounded-lg hover:bg-white/10"
-              aria-label="Close dialog"
+      {showConfirmModal &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            data-lenis-prevent
+            className="fixed inset-0 z-[99999] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 min-h-[100dvh] w-screen"
+            style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) cancelDownloadResume();
+            }}
+          >
+            <div
+              data-lenis-prevent
+              className="w-full max-w-md max-h-[90dvh] overflow-y-auto rounded-2xl bg-gradient-to-b from-[#1C0509] via-[#120306] to-[#0A0A0C] border-2 border-[#7A1926] shadow-[0_20px_60px_rgba(122,25,38,0.7)] p-6 text-white relative my-auto animate-fadeIn"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X size={16} />
-            </button>
-
-            {/* Icon Header */}
-            <div className="w-12 h-12 rounded-2xl bg-[#2D0A12] border border-[#7A1926] flex items-center justify-center text-[#F3B3BC] shadow-[0_0_20px_rgba(122,25,38,0.5)]">
-              <FileText size={22} />
-            </div>
-
-            {/* Title & Description */}
-            <h3 className="text-lg font-bold font-display tracking-tight text-white mt-4">
-              Download Official Resume?
-            </h3>
-            <p className="text-xs sm:text-sm text-neutral-300 font-sans mt-2 leading-relaxed">
-              Do you want to download <span className="font-mono text-white font-semibold">Vikash_Kumar_Resume.pdf</span> to your device?
-            </p>
-
-            {/* File Info Pill */}
-            <div className="mt-4 p-2.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center gap-2 text-xs font-mono">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-neutral-300">Format: <strong className="text-white">PDF</strong></span>
-            </div>
-
-            {/* Action Buttons: Yes / No */}
-            <div className="mt-6 flex items-center gap-3">
+              {/* Top Close Button */}
               <button
-                type="button"
                 onClick={cancelDownloadResume}
                 onMouseEnter={playHoverSound}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-300 hover:text-white font-mono text-xs font-bold tracking-wider transition-all border border-white/10 cursor-pointer text-center select-none"
+                className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors cursor-pointer p-1 rounded-lg hover:bg-white/10"
+                aria-label="Close dialog"
               >
-                NO, CANCEL
+                <X size={16} />
               </button>
-              <button
-                type="button"
-                onClick={confirmDownloadResume}
-                onMouseEnter={playHoverSound}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#7A1926] to-[#400B14] hover:from-[#962031] hover:to-[#550E1A] text-white font-mono text-xs font-bold tracking-wider transition-all border border-[#E6B0B8]/40 shadow-[0_0_20px_rgba(122,25,38,0.5)] cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.02] text-center select-none"
-              >
-                <Download size={14} />
-                <span>YES, DOWNLOAD</span>
-              </button>
+
+              {/* Icon Header */}
+              <div className="w-12 h-12 rounded-2xl bg-[#2D0A12] border border-[#7A1926] flex items-center justify-center text-[#F3B3BC] shadow-[0_0_20px_rgba(122,25,38,0.5)]">
+                <FileText size={22} />
+              </div>
+
+              {/* Title & Description */}
+              <h3 className="text-lg font-bold font-display tracking-tight text-white mt-4">
+                Download Official Resume?
+              </h3>
+              <p className="text-xs sm:text-sm text-neutral-300 font-sans mt-2 leading-relaxed">
+                Do you want to download <span className="font-mono text-white font-semibold">Vikash_Kumar_Resume.pdf</span> to your device?
+              </p>
+
+              {/* File Info Pill */}
+              <div className="mt-4 p-2.5 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center gap-2 text-xs font-mono">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-neutral-300">Format: <strong className="text-white">PDF</strong></span>
+              </div>
+
+              {/* Action Buttons: Yes / No */}
+              <div className="mt-6 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={cancelDownloadResume}
+                  onMouseEnter={playHoverSound}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-300 hover:text-white font-mono text-xs font-bold tracking-wider transition-all border border-white/10 cursor-pointer text-center select-none"
+                >
+                  NO, CANCEL
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmDownloadResume}
+                  onMouseEnter={playHoverSound}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#7A1926] to-[#400B14] hover:from-[#962031] hover:to-[#550E1A] text-white font-mono text-xs font-bold tracking-wider transition-all border border-[#E6B0B8]/40 shadow-[0_0_20px_rgba(122,25,38,0.5)] cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.02] text-center select-none"
+                >
+                  <Download size={14} />
+                  <span>YES, DOWNLOAD</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </section>
   );
 }
