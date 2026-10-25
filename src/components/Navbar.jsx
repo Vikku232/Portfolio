@@ -148,7 +148,7 @@ export default function Navbar({ onOpenContact }) {
                 isDarkBg ? 'text-white' : 'text-neutral-900'
               }`}
             >
-              VIKASH KUMAR PANDEY
+              VIKASH PANDEY
             </span>
             <span
               className={`text-[10px] tracking-widest font-mono transition-colors duration-300 ${
@@ -193,10 +193,10 @@ export default function Navbar({ onOpenContact }) {
           ))}
         </nav>
 
-        {/* Right Action Icons & Socials */}
+        {/* Right Action Icons & Socials (Desktop only on top bar, hidden on mobile) */}
         <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          {/* Social Links Group */}
-          <div className="flex items-center gap-1.5">
+          {/* Social Links Group - Hidden on mobile, visible from md up */}
+          <div className="hidden md:flex items-center gap-1.5">
             {/* GitHub link */}
             <a
               href="https://github.com/Vikku232"
@@ -232,13 +232,13 @@ export default function Navbar({ onOpenContact }) {
 
           {/* Subtle Vertical Divider */}
           <div
-            className={`hidden sm:block w-[1px] h-4 mx-0.5 ${
+            className={`hidden md:block w-[1px] h-4 mx-0.5 ${
               isDarkBg ? 'bg-[#5A141E]/50' : 'bg-neutral-300'
             }`}
           />
 
-          {/* Action Buttons Group */}
-          <div className="flex items-center gap-2">
+          {/* Action Buttons Group - Hidden on mobile, visible from md up */}
+          <div className="hidden md:flex items-center gap-2">
             {/* Download Resume Button */}
             <button
               onClick={requestResumeDownload}
@@ -251,8 +251,7 @@ export default function Navbar({ onOpenContact }) {
               }`}
             >
               <Download size={13} className="shrink-0 text-[#E6B0B8]" />
-              <span className="hidden sm:inline">RESUME</span>
-              <span className="sm:hidden">CV</span>
+              <span>RESUME</span>
             </button>
 
             {/* Contact / Hire CTA Button */}
@@ -265,7 +264,7 @@ export default function Navbar({ onOpenContact }) {
                 }
               }}
               onMouseEnter={playHoverSound}
-              className={`h-9 hidden sm:inline-flex items-center gap-1.5 px-4 rounded-full text-xs font-semibold tracking-wider transition-all font-mono select-none ${
+              className={`h-9 inline-flex items-center gap-1.5 px-4 rounded-full text-xs font-semibold tracking-wider transition-all font-mono select-none ${
                 isDarkBg
                   ? 'bg-gradient-to-r from-[#4A1018] to-[#200408] hover:from-[#6A1824] text-white border border-[#7A1926]/50 shadow-[0_0_15px_rgba(122,25,38,0.35)]'
                   : 'bg-black text-white hover:bg-neutral-800 shadow'
@@ -276,83 +275,116 @@ export default function Navbar({ onOpenContact }) {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Triple Lines Button (Hamburger Menu) */}
           <button
             onClick={() => {
               playClickSound();
               setMobileMenuOpen(!mobileMenuOpen);
             }}
-            className={`md:hidden p-2 transition-colors ${isDarkBg ? 'text-white' : 'text-black'}`}
+            aria-label="Toggle Navigation Menu"
+            className={`md:hidden p-2 rounded-xl transition-all cursor-pointer flex items-center justify-center ${
+              isDarkBg
+                ? 'text-white hover:bg-white/10 active:scale-95'
+                : 'text-black hover:bg-black/5 active:scale-95'
+            }`}
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer - Opens everything stacked vertically (ek ke niche ek karke) */}
       {mobileMenuOpen && (
         <div
-          className={`md:hidden mt-3 mx-auto max-w-sm rounded-2xl p-6 border shadow-2xl flex flex-col gap-4 animate-fadeIn ${
-            isDarkBg
-              ? 'bg-[#12151D]/95 backdrop-blur-xl border-white/15 text-white'
-              : 'bg-white/95 backdrop-blur-xl border-neutral-200 text-neutral-800'
-          }`}
+          data-lenis-prevent
+          className="md:hidden mt-3 mx-auto w-full max-w-sm sm:max-w-md rounded-2xl p-5 bg-gradient-to-b from-[#1C0509]/98 via-[#120306]/98 to-[#0A0A0C]/98 backdrop-blur-2xl border border-[#5A141E]/70 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col gap-3 animate-fadeIn text-white"
         >
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                playClickSound();
-                setMobileMenuOpen(false);
-                if (window.lenis) {
-                  window.lenis.scrollTo(link.href);
-                } else {
-                  document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className={`text-sm font-bold py-1 tracking-wider font-mono cursor-pointer ${
-                isDarkBg ? 'text-neutral-200 hover:text-white' : 'text-neutral-800 hover:text-black'
-              }`}
-            >
-              <span className="hover-underline-maroon">{link.label}</span>
-            </a>
-          ))}
+          {/* 1. Navigation Links (One below the other) */}
+          <div className="flex flex-col space-y-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  playClickSound();
+                  setMobileMenuOpen(false);
+                  if (window.lenis) {
+                    window.lenis.scrollTo(link.href);
+                  } else {
+                    document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-neutral-200 hover:text-white hover:bg-white/10 active:bg-white/15 transition-all text-xs font-mono font-bold tracking-wider cursor-pointer border border-transparent hover:border-white/10"
+              >
+                <span>{link.label}</span>
+                <span className="text-neutral-500 text-xs">→</span>
+              </a>
+            ))}
+          </div>
 
-          {/* Mobile Download Resume Button */}
+          <div className="h-[1px] w-full bg-white/10 my-0.5" />
+
+          {/* 2. Download Resume Button (Ek ke niche) */}
           <button
             onClick={() => {
               setMobileMenuOpen(false);
               requestResumeDownload();
             }}
-            className={`w-full py-2.5 text-xs font-bold rounded-lg flex items-center justify-center gap-2 font-mono cursor-pointer border ${
-              isDarkBg
-                ? 'bg-[#25080E] text-[#F3B3BC] border-[#5A141E] hover:bg-[#380A12] shadow-[0_0_15px_rgba(122,25,38,0.3)]'
-                : 'bg-neutral-100 text-neutral-900 border-neutral-300 hover:bg-neutral-200'
-            }`}
+            className="w-full py-3 px-4 rounded-xl text-xs font-bold font-mono tracking-wider flex items-center justify-center gap-2 border bg-gradient-to-r from-[#320810] to-[#180508] hover:from-[#5A121E] hover:to-[#2A080E] text-[#F3B3BC] hover:text-white border-[#5A141E] shadow-[0_0_15px_rgba(122,25,38,0.35)] cursor-pointer active:scale-95 transition-all text-center"
           >
-            <Download size={14} className="text-[#E6B0B8]" />
-            <span>DOWNLOAD RESUME</span>
+            <Download size={15} className="text-[#E6B0B8] shrink-0" />
+            <span>DOWNLOAD RESUME (PDF)</span>
           </button>
 
+          {/* 3. Get In Touch Button (Ek ke niche) */}
           <button
             onClick={() => {
               playClickSound();
               setMobileMenuOpen(false);
-              if (window.lenis) {
-                window.lenis.scrollTo('#contact');
-              } else {
+              if (onOpenContact) onOpenContact();
+              else {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className={`w-full py-2.5 text-xs font-bold rounded-lg mt-1 flex items-center justify-center gap-2 font-mono cursor-pointer ${
-              isDarkBg ? 'bg-white text-black hover:bg-neutral-200' : 'bg-black text-white hover:bg-neutral-800'
-            }`}
+            className="w-full py-3 px-4 rounded-xl text-xs font-bold font-mono tracking-wider flex items-center justify-center gap-2 bg-gradient-to-r from-[#7A1926] to-[#400B14] hover:from-[#962031] text-white border border-[#E6B0B8]/40 shadow-[0_0_20px_rgba(122,25,38,0.5)] cursor-pointer active:scale-95 transition-all text-center"
           >
             <span>GET IN TOUCH</span>
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={15} className="shrink-0" />
           </button>
+
+          <div className="h-[1px] w-full bg-white/10 my-0.5" />
+
+          {/* 4. Social Links (GitHub & LinkedIn - Ek ke niche ek karke) */}
+          <div className="flex flex-col gap-2 pt-0.5">
+            <a
+              href="https://github.com/Vikku232"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 text-neutral-300 hover:text-white text-xs font-mono transition-all"
+            >
+              <div className="flex items-center gap-2.5">
+                <GithubIcon size={16} />
+                <span className="font-semibold">GitHub Profile</span>
+              </div>
+              <ArrowUpRight size={14} className="text-neutral-500" />
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/vikash-kr-pandey-554a1631a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 text-neutral-300 hover:text-[#38BDF8] text-xs font-mono transition-all"
+            >
+              <div className="flex items-center gap-2.5">
+                <LinkedinIcon size={16} />
+                <span className="font-semibold">LinkedIn Profile</span>
+              </div>
+              <ArrowUpRight size={14} className="text-neutral-500" />
+            </a>
+          </div>
         </div>
       )}
 
