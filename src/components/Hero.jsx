@@ -11,7 +11,6 @@ export default function Hero() {
   const stageRef = useRef(null);
   const sideFaceRef = useRef(null);
   const frontFaceRef = useRef(null);
-  const promptRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -80,20 +79,6 @@ export default function Hero() {
         },
         0.15
       );
-
-      // Scroll hint prompt fades out quickly
-      if (promptRef.current) {
-        scrollTl.to(
-          promptRef.current,
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.2,
-            ease: 'power1.out',
-          },
-          0
-        );
-      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -194,15 +179,6 @@ export default function Hero() {
             }}
           />
         </div>
-      </div>
-
-      {/* Subtle Scroll Hint */}
-      <div
-        ref={promptRef}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 pointer-events-none text-neutral-400 font-mono text-[10px] tracking-widest uppercase transition-opacity"
-      >
-        <span className="animate-pulse">SCROLL TO ROTATE</span>
-        <span className="w-1.5 h-1.5 rounded-full bg-black animate-bounce" />
       </div>
     </section>
   );
