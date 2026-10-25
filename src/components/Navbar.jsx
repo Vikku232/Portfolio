@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Menu, X, ArrowUpRight, Mail, Download, CheckCircle2, FileText } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, ArrowUpRight, Mail, Download, CheckCircle2, FileText, User, Briefcase, Cpu, Layers, GraduationCap } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import { toggleSound, playClickSound, playHoverSound } from '../utils/sound';
 
@@ -297,11 +297,18 @@ export default function Navbar({ onOpenContact }) {
       {mobileMenuOpen && (
         <div
           data-lenis-prevent
-          className="md:hidden mt-3 mx-auto w-full max-w-sm sm:max-w-md rounded-2xl p-5 bg-gradient-to-b from-[#1C0509]/98 via-[#120306]/98 to-[#0A0A0C]/98 backdrop-blur-2xl border border-[#5A141E]/70 shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col gap-3 animate-fadeIn text-white"
+          style={{ backgroundColor: '#100204', color: '#FFFFFF' }}
+          className="md:hidden mt-3 mx-auto w-full max-w-sm sm:max-w-md rounded-2xl p-4 sm:p-5 border-2 border-[#7A1926] shadow-[0_30px_90px_rgba(0,0,0,0.98)] flex flex-col gap-2.5 animate-fadeIn text-white"
         >
-          {/* 1. Navigation Links (One below the other) */}
-          <div className="flex flex-col space-y-1">
-            {navLinks.map((link) => (
+          {/* 1. Navigation Links (Ek ke niche ek, crystal clear high contrast) */}
+          <div className="flex flex-col space-y-1.5">
+            {[
+              { label: 'ABOUT', href: '#about', icon: <User size={16} className="text-[#FF758F]" /> },
+              { label: 'EXPERIENCE', href: '#experience', icon: <Briefcase size={16} className="text-[#FF758F]" /> },
+              { label: 'SKILLS', href: '#skills', icon: <Cpu size={16} className="text-[#FF758F]" /> },
+              { label: 'PROJECTS', href: '#projects', icon: <Layers size={16} className="text-[#FF758F]" /> },
+              { label: 'EDUCATION', href: '#education', icon: <GraduationCap size={16} className="text-[#FF758F]" /> },
+            ].map((link) => (
               <a
                 key={link.label}
                 href={link.href}
@@ -315,15 +322,18 @@ export default function Navbar({ onOpenContact }) {
                     document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-neutral-200 hover:text-white hover:bg-white/10 active:bg-white/15 transition-all text-xs font-mono font-bold tracking-wider cursor-pointer border border-transparent hover:border-white/10"
+                className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border border-[#5A141E] text-white font-mono font-bold text-xs tracking-wider transition-all cursor-pointer shadow-sm"
               >
-                <span>{link.label}</span>
-                <span className="text-neutral-500 text-xs">→</span>
+                <div className="flex items-center gap-3">
+                  <span className="shrink-0">{link.icon}</span>
+                  <span className="text-white font-extrabold tracking-wider">{link.label}</span>
+                </div>
+                <span className="text-[#FF758F] text-sm font-bold">→</span>
               </a>
             ))}
           </div>
 
-          <div className="h-[1px] w-full bg-white/10 my-0.5" />
+          <div className="h-[1px] w-full bg-[#5A141E]/70 my-0.5" />
 
           {/* 2. Download Resume Button (Ek ke niche) */}
           <button
@@ -331,10 +341,10 @@ export default function Navbar({ onOpenContact }) {
               setMobileMenuOpen(false);
               requestResumeDownload();
             }}
-            className="w-full py-3 px-4 rounded-xl text-xs font-bold font-mono tracking-wider flex items-center justify-center gap-2 border bg-gradient-to-r from-[#320810] to-[#180508] hover:from-[#5A121E] hover:to-[#2A080E] text-[#F3B3BC] hover:text-white border-[#5A141E] shadow-[0_0_15px_rgba(122,25,38,0.35)] cursor-pointer active:scale-95 transition-all text-center"
+            className="w-full py-3.5 px-4 rounded-xl text-xs font-black font-mono tracking-wider flex items-center justify-center gap-2 border-2 border-[#7A1926] bg-[#2A060C] hover:bg-[#3D0A13] text-white shadow-[0_0_20px_rgba(122,25,38,0.45)] cursor-pointer active:scale-95 transition-all text-center"
           >
-            <Download size={15} className="text-[#E6B0B8] shrink-0" />
-            <span>DOWNLOAD RESUME (PDF)</span>
+            <Download size={16} className="text-[#FF758F] shrink-0" />
+            <span className="text-white font-extrabold tracking-wider">DOWNLOAD RESUME (PDF)</span>
           </button>
 
           {/* 3. Get In Touch Button (Ek ke niche) */}
@@ -347,13 +357,13 @@ export default function Navbar({ onOpenContact }) {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="w-full py-3 px-4 rounded-xl text-xs font-bold font-mono tracking-wider flex items-center justify-center gap-2 bg-gradient-to-r from-[#7A1926] to-[#400B14] hover:from-[#962031] text-white border border-[#E6B0B8]/40 shadow-[0_0_20px_rgba(122,25,38,0.5)] cursor-pointer active:scale-95 transition-all text-center"
+            className="w-full py-3.5 px-4 rounded-xl text-xs font-black font-mono tracking-wider flex items-center justify-center gap-2 bg-[#7A1926] hover:bg-[#962031] text-white border border-[#FF758F]/50 shadow-[0_0_25px_rgba(122,25,38,0.6)] cursor-pointer active:scale-95 transition-all text-center"
           >
-            <span>GET IN TOUCH</span>
-            <ArrowUpRight size={15} className="shrink-0" />
+            <span className="text-white font-extrabold tracking-wider">GET IN TOUCH</span>
+            <ArrowUpRight size={16} className="shrink-0" />
           </button>
 
-          <div className="h-[1px] w-full bg-white/10 my-0.5" />
+          <div className="h-[1px] w-full bg-[#5A141E]/70 my-0.5" />
 
           {/* 4. Social Links (GitHub & LinkedIn - Ek ke niche ek karke) */}
           <div className="flex flex-col gap-2 pt-0.5">
@@ -362,13 +372,13 @@ export default function Navbar({ onOpenContact }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 text-neutral-300 hover:text-white text-xs font-mono transition-all"
+              className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border border-[#5A141E] text-white text-xs font-mono font-bold transition-all"
             >
-              <div className="flex items-center gap-2.5">
-                <GithubIcon size={16} />
-                <span className="font-semibold">GitHub Profile</span>
+              <div className="flex items-center gap-3">
+                <GithubIcon size={17} />
+                <span className="text-white font-extrabold tracking-wider">GitHub Profile</span>
               </div>
-              <ArrowUpRight size={14} className="text-neutral-500" />
+              <ArrowUpRight size={15} className="text-[#FF758F]" />
             </a>
 
             <a
@@ -376,13 +386,13 @@ export default function Navbar({ onOpenContact }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 text-neutral-300 hover:text-[#38BDF8] text-xs font-mono transition-all"
+              className="flex items-center justify-between px-4 py-3 rounded-xl bg-[#1E0508] hover:bg-[#340910] active:bg-[#480E18] border border-[#5A141E] text-white text-xs font-mono font-bold transition-all"
             >
-              <div className="flex items-center gap-2.5">
-                <LinkedinIcon size={16} />
-                <span className="font-semibold">LinkedIn Profile</span>
+              <div className="flex items-center gap-3">
+                <LinkedinIcon size={17} />
+                <span className="text-[#38BDF8] font-extrabold tracking-wider">LinkedIn Profile</span>
               </div>
-              <ArrowUpRight size={14} className="text-neutral-500" />
+              <ArrowUpRight size={15} className="text-[#FF758F]" />
             </a>
           </div>
         </div>
