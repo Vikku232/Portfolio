@@ -277,7 +277,7 @@ export default function ContactFooter() {
               href="mailto:vikashkrpandey563@gmail.com"
               onMouseEnter={playHoverSound}
               onClick={playClickSound}
-              className="text-2xl sm:text-3xl md:text-4xl font-black font-display tracking-tight text-white hover:text-[#F3B3BC] transition-colors hover-underline-maroon"
+              className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-black font-display tracking-tight text-white hover:text-[#F3B3BC] transition-colors hover-underline-maroon break-all sm:break-normal"
             >
               vikashkrpandey563@gmail.com
             </a>
@@ -339,7 +339,10 @@ export default function ContactFooter() {
         </div>
 
         {/* 4. Giant 3D Chrome Name with Dark Maroon to Black Wave Background */}
-        <div className="contact-reveal relative w-full overflow-hidden flex flex-col items-center justify-center pt-14 pb-10 my-4 select-none">
+        <div className="contact-reveal relative w-full overflow-hidden flex flex-col items-center justify-center pt-8 sm:pt-14 pb-6 sm:pb-10 my-4 select-none">
+          {/* Accessible Heading for SEO / Screen Readers */}
+          <h1 className="sr-only">VIKASH KUMAR PANDEY</h1>
+
           {/* Dark Maroon to Black Wave Background */}
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
             {/* Ambient Radial Dark Maroon Core Glow */}
@@ -353,7 +356,7 @@ export default function ContactFooter() {
 
             {/* Fluid Dark Maroon Wave Silk Ribbon SVG */}
             <svg
-              className="w-full h-full min-h-[300px] object-cover opacity-85"
+              className="w-full h-full min-h-[260px] sm:min-h-[300px] object-cover opacity-85"
               viewBox="0 0 1440 380"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -408,24 +411,67 @@ export default function ContactFooter() {
             </svg>
           </div>
 
-          {/* Giant Metallic Chrome 3D Typography: VIKASH */}
-          <h1
-            className="relative z-10 text-[18vw] sm:text-[16vw] md:text-[14vw] font-black font-display tracking-tight leading-none uppercase select-none text-center"
-            style={{
-              background:
-                'linear-gradient(180deg, #FFFFFF 0%, #E6EAF2 30%, #8D96A8 55%, #FFFFFF 68%, #363B48 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              filter:
-                'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.95)) drop-shadow(0 2px 6px rgba(255, 255, 255, 0.35))',
-              letterSpacing: '-0.03em',
-            }}
-          >
-            VIKASH
-          </h1>
+          {/* Fully Responsive Metallic Chrome 3D Typography: VIKASH */}
+          <div className="relative z-10 w-full max-w-5xl px-2 sm:px-4 flex items-center justify-center">
+            <svg
+              viewBox="0 0 1100 210"
+              className="w-full h-auto max-h-[180px] sm:max-h-[240px] select-none overflow-visible"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-label="VIKASH"
+            >
+              <defs>
+                {/* Multi-stop Metallic Chrome 3D Specular Reflection */}
+                <linearGradient id="vikashChromeReflect" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#FFFFFF" />
+                  <stop offset="22%" stopColor="#E2E8F0" />
+                  <stop offset="46%" stopColor="#7E8B9F" />
+                  <stop offset="49%" stopColor="#2D3748" />
+                  <stop offset="51%" stopColor="#0F172A" />
+                  <stop offset="53%" stopColor="#FFFFFF" />
+                  <stop offset="68%" stopColor="#CBD5E1" />
+                  <stop offset="85%" stopColor="#64748B" />
+                  <stop offset="100%" stopColor="#1E293B" />
+                </linearGradient>
 
-          {/* Subtitle Underneath Name */}
-          <p className="relative z-10 text-[10px] sm:text-xs font-mono tracking-[0.25em] text-neutral-400 uppercase mt-4 text-center">
+                {/* Bevel Rim Stroke Gradient */}
+                <linearGradient id="vikashBevelStroke" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
+                  <stop offset="48%" stopColor="#94A3B8" stopOpacity="0.4" />
+                  <stop offset="52%" stopColor="#FFFFFF" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#334155" stopOpacity="0.6" />
+                </linearGradient>
+
+                {/* 3D Depth Drop Shadow Filter */}
+                <filter id="vikashChromeDepth" x="-15%" y="-20%" width="130%" height="150%">
+                  <feDropShadow dx="0" dy="16" stdDeviation="18" floodColor="#000000" floodOpacity="0.95" />
+                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#FFFFFF" floodOpacity="0.35" />
+                </filter>
+              </defs>
+
+              <text
+                x="550"
+                y="152"
+                textAnchor="middle"
+                fill="url(#vikashChromeReflect)"
+                stroke="url(#vikashBevelStroke)"
+                strokeWidth="1.2"
+                filter="url(#vikashChromeDepth)"
+                style={{
+                  fontFamily: '"Syne", "Outfit", sans-serif',
+                  fontWeight: 900,
+                  fontSize: '185px',
+                  letterSpacing: '-0.025em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                VIKASH
+              </text>
+            </svg>
+          </div>
+
+          {/* Subtitle Underneath Name - Fluid & Responsive on all mobile screens */}
+          <p className="relative z-10 text-[9px] sm:text-xs md:text-sm font-mono tracking-[0.14em] sm:tracking-[0.25em] text-neutral-400 uppercase mt-2 sm:mt-4 text-center px-4 max-w-full leading-relaxed">
             VIKASH KUMAR PANDEY · JAVA SPRING BOOT & AI DEVELOPER
           </p>
         </div>
